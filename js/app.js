@@ -23,15 +23,22 @@ function displayCrypto(crypto){
         let cryptoItem = document.createElement('div');
         cryptoItem.classList.add('crypto-item');
         cryptoItem.innerHTML = `
-        <span class="crypto-name>${cry.name} (${cry.symbol})</span>
+        <img src="${cry.image}" alt="${cry.name}" class="image"/>
+        <span class="crypto-name">${cry.name}</span>
         <span class="crypto-price ${priceClass}">$ ${cry.current_price}</span>
         `;
         cryptoList.appendChild(cryptoItem)
-        console.log(cry)
     })
   
 }
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredCryptos = cryptocurrencies.filter(cry =>
+        cry.name.toLowerCase().includes(searchTerm)
+    );
+    displayCrypto(filteredCryptos);
+});
 
 fetchCryptos();
 
-// setInterval(fetchCryptos , 30000);
+setInterval(fetchCryptos , 30000);
